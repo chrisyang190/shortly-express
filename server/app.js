@@ -83,23 +83,37 @@ function(req, res, next) {
 });
 
 app.post('/signup', function(req, res, next) {
-  //var newPassword = '';
-  // util.hashPassword(req.body.password, function(hash) {
-  //   req.body.password = hash;
-  //var newPassword = util.hashPassword(req.body.password);
-    //console.log('newpassword', newPassword);
-    // var newPassword = "Samantha";
+  var newPassword;
+  util.hashPassword(req.body.password, function(hash) {
+    newPassword = hash;
+  });
+  var userinfo = [req.body.username, newPassword];
 
-  var userinfo = [req.body.username, req.body.password];
-    // var userinfo = [req.body.username, req.body.password];
-    // console.log('userinfo', userinfo);
   Users.postUser(userinfo, function(err, results) {
     if (err) {
-      console.log('Unsuccessful while posting a user');
+      res.redirect('/signup');
+    } else {
+      res.redirect('/');
     }
     res.status(201).send();
   });
-  // });
+});
+
+app.post('/login', function(req, res, next) {
+  var newPassword;
+  util.hashPassword(req.body.password, function(hash) {
+    newPassword = hash;
+  });
+  var userinfo = [req.body.username, newPassword];
+
+  Users.validateUser(userinfo, function(results) {
+    if (results.length < 1) {
+      res.redirect('/login');
+    } else {
+      res.redirect('/');
+    }
+    res.status(201).send();
+  });
 });
 
 /************************************************************/
