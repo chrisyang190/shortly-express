@@ -23,6 +23,6 @@ exports.isValidUrl = function(url) {
 
 exports.hashPassword = function(secret, callback) {
   const hash = crypto.createHmac('sha256', secret).update('I love cats').digest('hex');
-  console.log('hash', hash);
+  // console.log('hash', hash);
   callback(hash);
 };

@@ -15,7 +15,7 @@ module.exports = {
       if (err) {
         console.log('Unsucessful validateUser');
       }
-      console.log('results:', results);
+      // console.log('results:', results);
       callback(results);
     });
   },
