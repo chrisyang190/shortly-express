@@ -21,3 +21,8 @@ exports.isValidUrl = function(url) {
 // Add additional utility functions below
 /************************************************************/
 
+exports.hashPassword = function(secret, callback) {
+  const hash = crypto.createHmac('sha256', secret).update('I love cats').digest('hex');
+  console.log('hash', hash);
+  callback(hash);
+};

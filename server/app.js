@@ -82,6 +82,26 @@ function(req, res, next) {
   });
 });
 
+app.post('/signup', function(req, res, next) {
+  //var newPassword = '';
+  // util.hashPassword(req.body.password, function(hash) {
+  //   req.body.password = hash;
+  //var newPassword = util.hashPassword(req.body.password);
+    //console.log('newpassword', newPassword);
+    // var newPassword = "Samantha";
+
+  var userinfo = [req.body.username, req.body.password];
+    // var userinfo = [req.body.username, req.body.password];
+    // console.log('userinfo', userinfo);
+  Users.postUser(userinfo, function(err, results) {
+    if (err) {
+      console.log('Unsuccessful while posting a user');
+    }
+    res.status(201).send();
+  });
+  // });
+});
+
 /************************************************************/
 // Write your authentication routes here
 /************************************************************/
