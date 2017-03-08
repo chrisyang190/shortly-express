@@ -83,10 +83,7 @@ function(req, res, next) {
 });
 
 app.post('/signup', function(req, res, next) {
-  var newPassword;
-  util.hashPassword(req.body.password, function(hash) {
-    newPassword = hash;
-  });
+  var newPassword = util.generateHash(req.body.password);
   var userinfo = [req.body.username, newPassword];
 
   Users.postUser(userinfo, function(err, results) {
@@ -102,10 +99,7 @@ app.post('/signup', function(req, res, next) {
 
 app.post('/login', function(req, res, next) {
   //encrypting password should actually be done in the user model; this enables modularity 
-  var newPassword;
-  util.hashPassword(req.body.password, function(hash) {
-    newPassword = hash;
-  });
+  var newPassword = util.generateHash(req.body.password);
   var userinfo = [req.body.username, newPassword];
 
   Users.validateUser(userinfo, function(results) {

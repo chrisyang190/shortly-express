@@ -21,8 +21,16 @@ exports.isValidUrl = function(url) {
 // Add additional utility functions below
 /************************************************************/
 
-exports.hashPassword = function(secret, callback) {
-  const hash = crypto.createHmac('sha256', secret).update('I love cats').digest('hex');
-  // console.log('hash', hash);
-  callback(hash);
+exports.generateHash = function(secret, salt) {
+  const hash = crypto.createHmac('sha256', secret).update(secret + salt).digest('hex');
+  return hash;
+};
+
+exports.generateSalt = function () {
+  var salted = crypto.randomBytes(20).toString('hex');
+};
+
+exports.compareHash = function(attempted, stored, salt) {
+  var attempt = this.generateHash(attempted, salt);
+  return stored === attempt;
 };
