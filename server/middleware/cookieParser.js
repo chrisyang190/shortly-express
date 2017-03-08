@@ -14,10 +14,10 @@ var parseCookies = function(req, res, next) {
   cookieArray.forEach(function(item) {
     item = item.split('=');
     // console.log('item', item);
-    req.cookies[item[0]] = item[1];
+    req.cookies[item[0].trim()] = item[1].trim();
   });
 
-  // next();
+  next();
   // console.log('cookies in request:', req.cookies);
 };
 

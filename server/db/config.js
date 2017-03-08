@@ -22,7 +22,11 @@ module.exports = function(db) {
       linkId INT,\
       timestamp TIMESTAMP\
       );');
-  }).then(function() {
+  })
+  /************************************************************/
+  /*          Add additional schema queries here              */
+  /************************************************************/
+  .then(function() {
     // Create users table
     return db.queryAsync('CREATE TABLE IF NOT EXISTS users (\
       id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,\
@@ -32,18 +36,15 @@ module.exports = function(db) {
       );');
   })
   .then(function() {
-    // Create users table
+    // Create sessions table
     return db.queryAsync('CREATE TABLE IF NOT EXISTS sessions (\
       id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,\
       user_id INT,\
       hash VARCHAR(300),\
+      salt VARCHAR (255),\
       timestamp TIMESTAMP\
       );');
   })
-  /************************************************************/
-  /*          Add additional schema queries here              */
-  /************************************************************/
-
   .error(function(err) {
     console.log(err);
   });
