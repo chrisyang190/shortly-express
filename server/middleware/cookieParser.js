@@ -7,6 +7,8 @@ var parseCookies = function(req, res, next) {
   if (!req.headers.cookie) {
     return;
   }
+
+  // var cookieArray = req.get('Cookie') || '';
   var cookieArray = (req.headers.cookie).split(';');
   // console.log('array', cookieArray);
   cookieArray.forEach(function(item) {
@@ -15,6 +17,7 @@ var parseCookies = function(req, res, next) {
     req.cookies[item[0]] = item[1];
   });
 
+  // next();
   // console.log('cookies in request:', req.cookies);
 };
 

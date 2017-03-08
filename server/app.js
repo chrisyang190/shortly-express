@@ -92,6 +92,7 @@ app.post('/signup', function(req, res, next) {
   Users.postUser(userinfo, function(err, results) {
     if (err) {
       res.redirect('/signup');
+      //not redirected tologin page because do not want to give information about user existing..
     } else {
       res.redirect('/');
     }
@@ -100,6 +101,7 @@ app.post('/signup', function(req, res, next) {
 });
 
 app.post('/login', function(req, res, next) {
+  //encrypting password should actually be done in the user model; this enables modularity 
   var newPassword;
   util.hashPassword(req.body.password, function(hash) {
     newPassword = hash;
